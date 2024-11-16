@@ -1,0 +1,94 @@
+<!-- app/views/devise/sessions/new.html.erb -->
+
+<div style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px;">
+  <div style="max-width: 450px; margin: 0 auto; background-color: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden;">
+    <!-- Header Section -->
+    <div style="background: linear-gradient(to right, #2563eb, #3b82f6); padding: 30px 40px; text-align: center;">
+      <h2 style="color: white; margin: 0; font-size: 28px; font-weight: 600;">Welcome Back</h2>
+      <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Login to your account</p>
+    </div>
+
+    <!-- Form Section -->
+    <div style="padding: 40px;">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <!-- Email Field -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">📧</i>
+            <%= f.label :email, "Email Address", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+          </div>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",
+              style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                     font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                     &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+        </div>
+
+        <!-- Password Field -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">🔒</i>
+            <%= f.label :password, "Password", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+          </div>
+          <%= f.password_field :password, autocomplete: "current-password",
+              style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                     font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                     &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+        </div>
+
+        <!-- Remember Me -->
+        <% if devise_mapping.rememberable? %>
+          <div style="margin-bottom: 24px; display: flex; align-items: center;">
+            <div style="display: flex; align-items: center;">
+              <%= f.check_box :remember_me, 
+                  style: "width: 16px; height: 16px; margin-right: 8px; border: 2px solid #e5e7eb; 
+                         border-radius: 4px; cursor: pointer;" %>
+              <%= f.label :remember_me, style: "color: #374151; font-size: 14px; cursor: pointer;" %>
+            </div>
+
+          </div>
+        <% end %>
+
+        <!-- Login Button -->
+        <%= f.submit "Log in", 
+            style: "width: 100%; padding: 14px; background: linear-gradient(to right, #2563eb, #3b82f6); 
+                   color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 500; 
+                   cursor: pointer; transition: all 0.3s; &:hover { transform: translateY(-1px); 
+                   box-shadow: 0 4px 12px rgba(37,99,235,0.2); }" %>
+      <% end %>
+
+      <!-- Sign up link section -->
+      <div style="margin-top: 24px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
+        <p style="color: #6b7280; margin-bottom: 16px;">Don't have an account?</p>
+        <%= link_to "Create Account", new_registration_path(resource_name), 
+            style: "display: inline-block; width: 100%; padding: 12px; background-color: white; 
+                   color: #2563eb; border: 2px solid #2563eb; border-radius: 8px; font-size: 16px; 
+                   font-weight: 500; text-decoration: none; text-align: center; transition: all 0.3s;
+                   &:hover { background-color: #f8fafc; }" %>
+        
+        <% if devise_mapping.confirmable? %>
+          <div style="margin-top: 16px;">
+            <%= link_to "Didn't receive confirmation instructions?", 
+                new_confirmation_path(resource_name), 
+                style: "color: #6b7280; text-decoration: none; font-size: 14px; 
+                       &:hover { text-decoration: underline; }" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Add focus effects to all input fields
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('focus', () => {
+      input.style.borderColor = '#2563eb';
+      input.style.boxShadow = '0 0 0 3px rgba(37,99,235,0.1)';
+    });
+
+    input.addEventListener('blur', () => {
+      input.style.borderColor = '#e5e7eb';
+      input.style.boxShadow = 'none';
+    });
+  });
+</script>

@@ -1,0 +1,157 @@
+<!-- app/views/devise/registrations/new.html.erb -->
+
+<div style="min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px;">
+  <div style="max-width: 500px; margin: 0 auto; background-color: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden;">
+    <!-- Header Section -->
+    <div style="background: linear-gradient(to right, #2563eb, #3b82f6); padding: 30px 40px; text-align: center;">
+      <h2 style="color: white; margin: 0; font-size: 28px; font-weight: 600;">Create Account</h2>
+      <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0; font-size: 16px;">Join our healthcare platform</p>
+    </div>
+
+    <!-- Form Section -->
+    <div style="padding: 40px;">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <!-- Full Name Field -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">👤</i>
+            <%= f.label :full_name, "Full Name", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+          </div>
+          <%= f.text_field :full_name, autofocus: true, 
+              style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                     font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                     &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+        </div>
+
+        <!-- Email Field -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">📧</i>
+            <%= f.label :email, "Email Address", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+          </div>
+          <%= f.email_field :email, autocomplete: "email", 
+              style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                     font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                     &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+        </div>
+
+        <!-- Role Selection -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">👨‍⚕️</i>
+            <%= f.label :role, "Select Role", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+          </div>
+          <%= f.select :role, 
+              options_for_select([['Select Role', ''], ['Doctor', 'doctor'], ['Receptionist', 'receptionist']]), 
+              {}, 
+              { 
+                style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                       font-size: 15px; box-sizing: border-box; background-color: white; cursor: pointer;
+                       appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 7.5L10 10.5L13 7.5\" stroke=\"%234B5563\" stroke-width=\"1.67\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>');
+                       background-repeat: no-repeat; background-position: right 16px center;",
+                onchange: "toggleDoctorFields()" 
+              } 
+          %>
+        </div>
+
+        <!-- Doctor Specific Fields -->
+        <div id="doctor-fields" style="display: none; background-color: #f8fafc; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #e5e7eb;">
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+              <i style="margin-right: 8px; color: #4b5563;">🏥</i>
+              <%= f.label :specialists, "Specialization", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+            </div>
+            <%= f.select :specialists, 
+              options_for_select([['Select Specialist', ''], ['General Physician', 'General_physician'], ['Cancer', 'cancer'], ['Brain', 'brain'], ['Bone', 'bone']]), 
+              {}, 
+              { 
+                style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                       font-size: 15px; box-sizing: border-box; background-color: white; cursor: pointer;
+                       appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 7.5L10 10.5L13 7.5\" stroke=\"%234B5563\" stroke-width=\"1.67\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>');
+                       background-repeat: no-repeat; background-position: right 16px center;",
+                onchange: "toggleDoctorFields()" 
+              } 
+          %>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+              <i style="margin-right: 8px; color: #4b5563;">⏳</i>
+              <%= f.label :total_experience, "Years of Experience", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+            </div>
+            <%= f.number_field :total_experience, min: 0, 
+                style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                       font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                       &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+          </div>
+        </div>
+
+        <!-- Password Fields -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">🔒</i>
+            <%= f.label :password, "Password", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+            <% if @minimum_password_length %>
+              <span style="margin-left: auto; color: #dc2626; font-size: 13px;">(<%= @minimum_password_length %> characters min)</span>
+            <% end %>
+          </div>
+          <%= f.password_field :password, autocomplete: "new-password", 
+              style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                     font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                     &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; margin-bottom: 8px;">
+            <i style="margin-right: 8px; color: #4b5563;">🔒</i>
+            <%= f.label :password_confirmation, "Confirm Password", style: "color: #374151; font-weight: 500; font-size: 15px;" %>
+          </div>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", 
+              style: "width: 100%; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 8px; 
+                     font-size: 15px; box-sizing: border-box; transition: all 0.3s; outline: none;
+                     &:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }" %>
+        </div>
+
+        <!-- Submit Button -->
+        <%= f.submit "Create Account", 
+            style: "width: 100%; padding: 14px; background: linear-gradient(to right, #2563eb, #3b82f6); 
+                   color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 500; 
+                   cursor: pointer; transition: all 0.3s; &:hover { transform: translateY(-1px); 
+                   box-shadow: 0 4px 12px rgba(37,99,235,0.2); }" %>
+      <% end %>
+
+      <!-- Links Section -->
+      <div style="margin-top: 24px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 24px;">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleDoctorFields() {
+    const roleSelect = document.querySelector('select[name*="role"]');
+    const doctorFields = document.getElementById('doctor-fields');
+    
+    if (roleSelect.value === 'doctor') {
+      doctorFields.style.display = 'block';
+    } else {
+      doctorFields.style.display = 'none';
+    }
+  }
+
+  // Add focus effects to all input fields
+  document.querySelectorAll('input, select').forEach(input => {
+    input.addEventListener('focus', () => {
+      input.style.borderColor = '#2563eb';
+      input.style.boxShadow = '0 0 0 3px rgba(37,99,235,0.1)';
+    });
+
+    input.addEventListener('blur', () => {
+      input.style.borderColor = '#e5e7eb';
+      input.style.boxShadow = 'none';
+    });
+  });
+</script>

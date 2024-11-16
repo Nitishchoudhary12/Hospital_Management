@@ -6,8 +6,17 @@
       <h2 style="font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; line-height: 1.2;">Experience World-Class Healthcare</h2>
       <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">Where advanced technology meets compassionate care. Your journey to better health starts here.</p>
       <div style="text-align: center; margin-top: -20px; margin-bottom: 20px;">
-      <a href="#" style="background-color: green; color: white; padding: 15px 30px; font-size: 36rem; font-size: 18px; border-radius: 8px; text-align: center; display: inline-block; text-decoration: none;">Sign Up</a>
-    </div>
+
+        <% if hospital_staff_signed_in? %>
+          <p>Your role is: <%= current_hospital_staff.role %></p>      
+          <a><%= link_to "Log Out" , destroy_hospital_staff_session_path(@hospital_staff), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "btn btn-danger btn-lg me-2"  %> </a>
+        
+        <%else%>  
+          <%= link_to "Sign up",  new_hospital_staff_registration_path(@hospital_staff), class: "btn btn-success btn-lg me-5" %>
+          <%= link_to "Log in",  hospital_staff_session_path(@hospital_staff), class: "btn btn-success btn-lg me-5" %>
+        <%end%>
+
+      </div> 
     
     </div>
   </div>
