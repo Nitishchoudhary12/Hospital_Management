@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_15_234445) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_16_020120) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_15_234445) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_hospital_staffs_on_email", unique: true
     t.index ["reset_password_token"], name: "index_hospital_staffs_on_reset_password_token", unique: true
+  end
+
+  create_table "patients", force: :cascade do |t|
+    t.string "patient_name"
+    t.string "address"
+    t.integer "age"
+    t.string "facing_issue"
+    t.string "gender"
+    t.string "phone_number"
+    t.string "current_medications"
+    t.string "status"
+    t.datetime "booking_day"
+    t.integer "booked_by"
+    t.string "consulted_doctor"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

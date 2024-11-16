@@ -6,4 +6,8 @@ Rails.application.routes.draw do
 
   devise_for :hospital_staffs
 
+  namespace :handle_patient_detail do
+    resources :patients
+  end
+
 end
